@@ -59,6 +59,9 @@ function Engine(canvas, modelConstructor, stateConstructor, config) {
 	window.addEventListener("click", function(e) {
 		engine.click(e);
 	}, false);
+	window.addEventListener("mousemove", function(e) {
+		engine.mousemove(e);
+	}, false);
 }
 
 Engine.prototype.init = function() {
@@ -68,6 +71,7 @@ Engine.prototype.init = function() {
 		engine.state.update();
 		engine.keys.keyQueue = [];
 		engine.keys.charQueue = [];
+		engine.mouse.clicked = false;
 	};
 	loop();
 };
@@ -120,13 +124,22 @@ Engine.prototype.keyup = function(e) {
 };
 
 Engine.prototype.mousedown = function(e) {
-
+	this.mouse.down = true;
 };
 
 Engine.prototype.mouseup = function(e) {
-
+	this.mouse.down = false;
 };
 
 Engine.prototype.click = function(e) {
+	this.mouse.clicked = true;
+};
 
+Engine.prototype.mousemove = function(e) {
+	if(e.offsetX) {
+		this.mouse.pos = new V(e.offsetX, e.offsetY);
+	}
+	else if(e.layerX) {
+		this.mouse.pos = new V(e.layerX, e.layerY);
+	}
 };

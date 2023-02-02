@@ -152,6 +152,8 @@ function elasticCollisions(balls) {
         for(var j = i + 1; j < balls.length; j++) {
             var b2 = balls[j];
 
+			if(!doBoxesIntersect(b1, b2)) continue;
+
             if(b1.pos.dist(b2.pos) <= b1.rad + b2.rad) {
                 calculateElasticCollision(b1, b2);
             }
@@ -163,6 +165,12 @@ function applyFriction(objects, friAmount) {
 	for(var i = 0; i < objects.length; i++) {
         var norm = objects[i].vel.norm();
         objects[i].vel = objects[i].vel.scale(norm <= friAmount ? 0 : (norm - friAmount) / norm);
+	}
+}
+
+function applyVelocity(objects) {
+	for(var i = 0; i < objects.length; i++) {
+		objects[i].pos.accum(objects[i].vel);
 	}
 }
 
