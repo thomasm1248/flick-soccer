@@ -23,6 +23,7 @@ PlayerTurn.prototype.update = function() {
 				this.selectedPuck.selected = false;
 				this.selectedPuck.vel = mouse.pos.subtract(this.selectedPuck.pos).scale(0.05);
 				this.engine.state = new MovePieces(this.engine);
+				this.model.whosTurn = this.model.whosTurn === "A" ? "B" : "A";
 			}
 			break;
 		case "selecting":
@@ -32,6 +33,7 @@ PlayerTurn.prototype.update = function() {
 					var puck = pucks[i];
 					var puckRadSquared = puck.rad * puck.rad;
 					if(puck.pos.subtract(mouse.pos).normSquared() < puckRadSquared) {
+						if(puck.type !== this.model.whosTurn) break;
 						this.selectedPuck = puck;
 						puck.selected = true;
 						this.state = "aiming";

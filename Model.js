@@ -7,6 +7,8 @@ function Model(canvas, context, config) {
 	this.pucks = [];
 	this.toBeReplaced = [];
 
+	this.whosTurn = "A";
+
 	// Add soccer ball
 	this.pucks.push(new Puck(new V(this.canvas.width/2, this.canvas.height/2), "ball"));
 	
