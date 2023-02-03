@@ -22,6 +22,7 @@ MovePieces.prototype.update = function() {
 	applyVelocity(pucks);
 	
 	// Remove pucks that are out of bounds and add to replace list
+	var winConditionMet = false;
 	for(var i = 0; i < pucks.length; i++) {
 		// Shortcuts
 		var pos = pucks[i].pos;
@@ -29,12 +30,16 @@ MovePieces.prototype.update = function() {
 
 		// Check for win condition
 		if(pucks[i].type === "ball") {
+			var win = false;
 			if(pos.x < rad) {
 				alert("Blue Wins");
+				winConditionMet = true;
 			} else if(pos.x > canvas.width - rad) {
 				alert("Red Wins");
+				winConditionMet = true;
 			}
 		}
+		if(winConditionMet) break; // Skip puck removal if a player won
 
 		// Remove pucks that go out of bounds
 		if(pos.x < rad || pos.x > canvas.width - rad || pos.y < rad || pos.y > canvas.height - rad) {
@@ -45,6 +50,12 @@ MovePieces.prototype.update = function() {
 
 	// Draw
 	this.model.draw("all");
+
+	// If win condition was met, reset the game
+	if(winConditionMet) {
+		this.engine.model = new Model(canvas, this.engine.ctx, this.config);
+		this.engine.state = new PlayerTurn(this.engine);
+	}
 
 	// Switch to PlayerTurn when pieces stop moving
 	for(var i = 0; i < pucks.length; i++) {
