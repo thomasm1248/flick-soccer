@@ -43,6 +43,8 @@ PlayerTurn.prototype.update = function() {
 		case "placing":
 			if(mouse.clicked) {
 				var puckToPlace = this.model.toBeReplaced[0];
+
+				// You can't place the puck on another puck
 				var overlap = false;
 				for(var i = 0; i < pucks.length; i++) {
 					if(pucks[i].pos.dist(puckToPlace.pos) < pucks[i].rad + puckToPlace.rad) {
@@ -50,7 +52,16 @@ PlayerTurn.prototype.update = function() {
 						break;
 					}
 				}
+
+				// You can't place a puck off the field
 				if(puckToPlace.pos.x < puckToPlace.rad || puckToPlace.pos.x > canvas.width - puckToPlace.rad || puckToPlace.pos.y < puckToPlace.rad || puckToPlace.pos.y > canvas.height - puckToPlace.rad) overlap = true;
+
+				// You can't place the ball puck out of the box
+				var w = canvas.width / 4;
+				var h = canvas.height / 4;
+				if(puckToPlace.type === "ball" && (puckToPlace.pos.x < puckToPlace.rad + w || puckToPlace.pos.x > canvas.width - puckToPlace.rad - w || puckToPlace.pos.y < puckToPlace.rad + h || puckToPlace.pos.y > canvas.height - puckToPlace.rad - h)) overlap = true;
+
+				// Skip placement if a rule a broken
 				if(!overlap) {
 					pucks.push(puckToPlace);
 					puckToPlace.vel = new V();
@@ -68,10 +79,17 @@ PlayerTurn.prototype.update = function() {
 	this.model.draw("all");
 	if(this.state === "placing") {
 		var ctx = this.engine.ctx;
+		ctx.save();
 		ctx.globalAlpha = 0.5;
 		var puckToPlace = this.model.toBeReplaced[0];
 		puckToPlace.pos = mouse.pos;
 		puckToPlace.draw(ctx);
-		ctx.globalAlpha = 1;
+		if(puckToPlace.type === "ball") {
+			ctx.fillStyle = "white";
+			ctx.rect(canvas.width / 4, canvas.height / 4, canvas.width / 2, canvas.height / 2);
+			ctx.clip();
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+		}
+		ctx.restore();
 	}
 };

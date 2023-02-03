@@ -23,8 +23,20 @@ MovePieces.prototype.update = function() {
 	
 	// Remove pucks that are out of bounds and add to replace list
 	for(var i = 0; i < pucks.length; i++) {
+		// Shortcuts
 		var pos = pucks[i].pos;
 		var rad = pucks[i].rad;
+
+		// Check for win condition
+		if(pucks[i].type === "ball") {
+			if(pos.x < rad) {
+				alert("Blue Wins");
+			} else if(pos.x > canvas.width - rad) {
+				alert("Red Wins");
+			}
+		}
+
+		// Remove pucks that go out of bounds
 		if(pos.x < rad || pos.x > canvas.width - rad || pos.y < rad || pos.y > canvas.height - rad) {
 			this.model.toBeReplaced.push(pucks[i]);
 			pucks.splice(i--, 1);
