@@ -20,10 +20,13 @@ Object.prototype.draw = function(ctx) {
 function Puck(pos, type) {
 	this.type = type;
 	this.pos = pos;
-	this.vel = new V(Math.random() * 10 - 5, Math.random() * 10 - 5);
+	this.vel = new V();
 	this.rad = 50;
 	this.box = new V(this.rad, this.rad);
 	this.mass = 10;
+
+	// Used by game state to select a puck to be flicked
+	this.selected = false;
 
 	this.remove = false;
 }
@@ -49,7 +52,7 @@ Puck.prototype.draw = function(ctx) {
 	ctx.beginPath();
 	ctx.arc(0, 0, this.rad, 0, Math.PI*2);
 	ctx.fill();
-	ctx.strokeStyle = "black";
+	ctx.strokeStyle = this.selected ? "gray" : "black";
 	ctx.lineWidth = 5;
 	ctx.stroke();
 

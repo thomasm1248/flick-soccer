@@ -1,5 +1,5 @@
 
-function Game(engine) {
+function MovePieces(engine) {
 	// Shortcuts
 	this.engine = engine;
 	this.model = engine.model;
@@ -11,14 +11,14 @@ function Game(engine) {
 Everything that happens each frame in the game is done here.
 
 */
-Game.prototype.update = function() {
+MovePieces.prototype.update = function() {
 	// Shortcuts
 	var pucks = this.model.pucks;
 	var canvas = this.engine.canvas;
 
 	// Physics
 	elasticCollisions(pucks);
-	applyFriction(pucks, 0.1);
+	applyFriction(pucks, 0.15);
 	applyVelocity(pucks);
 	
 	// Remove pucks that are out of bounds and add to replace list
@@ -31,11 +31,15 @@ Game.prototype.update = function() {
 		}
 	}
 
-	// todo remove this test
-	if(this.engine.mouse.clicked) {
-		pucks.push(new Puck(this.engine.mouse.pos, "noetuh"));
-	}
-
 	// Draw
 	this.model.draw("all");
+
+	// Switch to PlayerTurn when pieces stop moving
+	for(var i = 0; i < pucks.length; i++) {
+		if(pucks[i].vel.normSquared() != 0) {
+			return; // At least one puck is moving
+		}
+	}
+	// If none of the pieces are moving,
+	this.engine.state = new PlayerTurn(this.engine);
 };
