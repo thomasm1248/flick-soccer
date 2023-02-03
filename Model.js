@@ -28,6 +28,22 @@ function Model(canvas, context, config) {
 		}
 		placingCenterPucks = false
 	}
+	// Add another row of player pucks
+	placingCenterPucks = true;
+	xa -= 130;
+	xb += 130;
+	for(var y = this.canvas.height / 2; y > 80; y -= 180) {
+		// Give each player a new puck above the previous
+		this.pucks.push(new Puck(new V(xa, y), "A"));
+		this.pucks.push(new Puck(new V(xb, y), "B"));
+
+		// If that wasn't the center puck, add another puck below
+		if(!placingCenterPucks) {
+			this.pucks.push(new Puck(new V(xa, this.canvas.height - y), "A"));
+			this.pucks.push(new Puck(new V(xb, this.canvas.height - y), "B"));
+		}
+		placingCenterPucks = false
+	}
 }
 
 Model.prototype.drawAll = function() {
