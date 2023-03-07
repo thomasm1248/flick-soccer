@@ -21,9 +21,9 @@ function Puck(pos, type) {
 	this.type = type;
 	this.pos = pos;
 	this.vel = new V();
-	this.rad = 50;
+	this.rad = 10 + Math.random() * 80;
 	this.box = new V(this.rad, this.rad);
-	this.mass = 10;
+	this.mass = this.rad * this.rad / 500;
 
 	// Used by game state to select a puck to be flicked
 	this.selected = false;
