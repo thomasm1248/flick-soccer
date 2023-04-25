@@ -35,7 +35,7 @@ Model.prototype.resetPucks = function() {
 	var placingCenterPucks = true;
 	var xa = this.canvas.width / 4;
 	var xb = this.canvas.width - xa;
-	for(var y = this.canvas.height / 2; y > 80; y -= 130) {
+	for(var y = this.canvas.height / 2; y > 90; y -= 130) {
 		// Give each player a new puck above the previous
 		this.pucks.push(new Puck(new V(xa, y), "A", 50));
 		this.pucks.push(new Puck(new V(xb, y), "B", 50));
@@ -51,7 +51,7 @@ Model.prototype.resetPucks = function() {
 	placingCenterPucks = true;
 	xa -= 130;
 	xb += 130;
-	for(var y = this.canvas.height / 2; y > 80; y -= 180) {
+	for(var y = this.canvas.height / 2; y > 90; y -= 180) {
 		// Give each player a new puck above the previous
 		this.pucks.push(new Puck(new V(xa, y), "A"));
 		this.pucks.push(new Puck(new V(xb, y), "B"));

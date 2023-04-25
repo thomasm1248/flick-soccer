@@ -29,13 +29,14 @@ MovePieces.prototype.update = function() {
 		var rad = pucks[i].rad;
 
 		// Check for win condition
+		var winner = "";
 		if(pucks[i].type === "ball") {
 			var win = false;
 			if(pos.x < rad) {
-				alert("Blue Wins");
+				winner = "Blue Team";
 				winConditionMet = true;
 			} else if(pos.x > canvas.width - rad) {
-				alert("Red Wins");
+				winner = "Red Team";
 				winConditionMet = true;
 			}
 		}
@@ -53,8 +54,7 @@ MovePieces.prototype.update = function() {
 
 	// If win condition was met, reset the game
 	if(winConditionMet) {
-		this.engine.model = new Model(canvas, this.engine.ctx, this.config);
-		this.engine.state = new PlayerTurn(this.engine);
+		this.engine.state = new GameOver(this.engine, winner);
 	}
 
 	// Switch to PlayerTurn when pieces stop moving
