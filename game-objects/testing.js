@@ -17,13 +17,17 @@ Object.prototype.draw = function(ctx) {
 
 
 
-function Puck(pos, type) {
+function Puck(pos, type, rad) {
 	this.type = type;
 	this.pos = pos;
-	this.vel = new V();
-	this.rad = 50;
+	this.vel = new V(Math.random()*4-2, Math.random()*4-2);
+	if(rad === undefined) {
+		this.rad = 20 + Math.random() * 60;
+	} else {
+		this.rad = rad;
+	}
 	this.box = new V(this.rad, this.rad);
-	this.mass = 10;
+	this.mass = this.rad * this.rad / 500;
 
 	// Used by game state to select a puck to be flicked
 	this.selected = false;
