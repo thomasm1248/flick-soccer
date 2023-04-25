@@ -48,5 +48,13 @@ GameOver.prototype.update = function() {
 	ctx.baseline = "center";
 	ctx.textAlign = "center";
 	ctx.fillText(this.winner + "\nWins!", canvas.width/2, canvas.height/2);
+	ctx.font = "bold 20px Courier";
+	ctx.fillText("(Press Spacebar)", canvas.width/2, canvas.height/2 + 50);
 	ctx.restore();
+
+	// Check if spacebar is pressed, and start new game if so
+	if(this.engine.keys["32"]) {
+		this.engine.model = new Model(canvas, ctx, this.config);
+		this.engine.state = new MovePieces(this.engine);1
+	}
 };
