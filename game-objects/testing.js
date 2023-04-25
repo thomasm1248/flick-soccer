@@ -56,7 +56,8 @@ Puck.prototype.draw = function(ctx) {
 	ctx.beginPath();
 	ctx.arc(0, 0, this.rad, 0, Math.PI*2);
 	ctx.fill();
-	ctx.strokeStyle = this.selected ? "gray" : "black";
+	ctx.strokeStyle = "black";
+	ctx.strokeStyle = this.selected ? "white" : "black";
 	ctx.lineWidth = 5;
 	ctx.stroke();
 
