@@ -87,7 +87,7 @@ PlayerTurn.prototype.update = function() {
 		puckToPlace.pos = mouse.pos;
 		puckToPlace.draw(ctx);
 		if(puckToPlace.type === "ball") {
-			ctx.fillStyle = "white";
+			ctx.fillStyle = "black";
 			ctx.fillRect(0, 0, canvas.width, canvas.height / 4);
 			ctx.fillRect(0, canvas.height / 4, canvas.width / 4, canvas.height / 4 * 3);
 			ctx.fillRect(canvas.width / 4, canvas.height / 4 * 3, canvas.width / 4 * 3, canvas.height / 4);
