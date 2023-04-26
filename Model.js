@@ -68,10 +68,16 @@ Model.prototype.resetPucks = function() {
 Model.prototype.drawAll = function() {
 	// Shortcuts
 	var ctx = this.ctx;
+	var canvas = this.canvas;
 
 	// Draw background
-	ctx.fillStyle = "#46e275"; // Green grass
+	ctx.fillStyle = "#c3a049"; // Dirt color
 	ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+	// Draw center guide box for placing ball (white) puck
+	ctx.strokeStyle = "black";
+	ctx.lineWidth = 5;
+	ctx.strokeRect(canvas.width / 4, canvas.height / 4, canvas.width / 2, canvas.height / 2);
 
 	// Draw pucks
 	for(var i = 0; i < this.pucks.length; i++) {
