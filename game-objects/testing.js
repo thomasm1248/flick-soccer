@@ -61,5 +61,13 @@ Puck.prototype.draw = function(ctx) {
 	ctx.lineWidth = 5;
 	ctx.stroke();
 
+	ctx.lineWidth = this.rad * 0.2;
+	ctx.lineCap = "round";
+	ctx.beginPath();
+	ctx.arc(0, 0, this.rad * 0.7, -1.5, -0.5);
+	ctx.strokeStyle = "white";
+	ctx.globalAlpha = 0.3;
+	ctx.stroke();
+
 	ctx.restore();
 };
