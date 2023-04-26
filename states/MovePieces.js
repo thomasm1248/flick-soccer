@@ -29,7 +29,13 @@ MovePieces.prototype.update = function() {
 		// Check for win condition
 		if(pucks[i].type === "ball") {
 			var x = pucks[i].pos.x;
+			var y = pucks[i].pos.y;
 			var rad = pucks[i].rad;
+			// If the ball goes off the top or bottom, it can no longer score
+			if(y < rad || y > canvas.height - rad) {
+				break;
+			}
+			// Otherwise, it can score
 			if(x < rad) {
 				winner = "Blue Team";
 				winConditionMet = true;
