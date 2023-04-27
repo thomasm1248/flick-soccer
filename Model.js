@@ -29,7 +29,7 @@ Model.prototype.resetPucks = function() {
 	this.pucks = [];
 
 	// Add soccer ball
-	this.pucks.push(new Puck(new V(this.canvas.width/2, this.canvas.height/2), "ball"));
+	this.pucks.push(new Puck(new V(this.canvas.width/2, this.canvas.height/2), "ball", 50));
 	
 	// Add player pucks
 	var placingCenterPucks = true;
