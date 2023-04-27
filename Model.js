@@ -7,20 +7,7 @@ function Model(canvas, context, config) {
 	this.pucks = [];
 	this.toBeReplaced = [];
 
-	var totalRedMass = 1
-	var totalBlueMass = 2
-	while(Math.abs(totalRedMass / totalBlueMass - 1) > 0.1) {
-		this.resetPucks();
-		totalRedMass = 0;
-		totalBlueMass = 0;
-		for(var puck in this.pucks) {
-			if(puck.type == "A") {
-				totalRedMass += puck.mass;
-			} else if(puck.type == "B") {
-				totalBlueMass += puck.mass;
-			}
-		}
-	}
+	this.resetPucks();
 
 	this.whosTurn = "A";
 }
