@@ -26,11 +26,18 @@ MovePieces.prototype.update = function() {
 	var winner = "";
 	// Find the ball puck
 	for(var i = 0; i < pucks.length; i++) {
+		var x = pucks[i].pos.x;
+		var y = pucks[i].pos.y;
+		var rad = pucks[i].rad;
+
+		// Remove pucks that go completely out of bounds
+		if(x < -rad || x > canvas.width + rad || y < -rad || y > canvas.height + rad) {
+			this.model.toBeReplaced.push(pucks[i]);
+			pucks.splice(i--, 1);
+		}
+
 		// Check for win condition
 		if(pucks[i].type === "ball") {
-			var x = pucks[i].pos.x;
-			var y = pucks[i].pos.y;
-			var rad = pucks[i].rad;
 			// If the ball goes off the top or bottom, it can no longer score
 			if(y < rad || y > canvas.height - rad) {
 				break;
