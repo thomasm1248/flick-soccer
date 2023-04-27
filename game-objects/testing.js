@@ -21,11 +21,7 @@ function Puck(pos, type, rad) {
 	this.type = type;
 	this.pos = pos;
 	this.vel = new V(Math.random()*4-2, Math.random()*4-2);
-	if(rad === undefined) {
-		this.rad = 20 + Math.random() * 60;
-	} else {
-		this.rad = rad;
-	}
+	this.rad = rad;
 	this.box = new V(this.rad, this.rad);
 	this.mass = this.rad * this.rad / 500;
 
