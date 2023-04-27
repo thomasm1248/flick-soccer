@@ -47,19 +47,21 @@ Model.prototype.resetPucks = function() {
 		}
 		placingCenterPucks = false
 	}
-	// Add another row of player pucks
+	// Add another row of player pucks with random sizes
 	placingCenterPucks = true;
 	xa -= 130;
 	xb += 130;
 	for(var y = this.canvas.height / 2; y > 90; y -= 180) {
+		var randomRad = 20 + Math.random() * 60;
 		// Give each player a new puck above the previous
-		this.pucks.push(new Puck(new V(xa, y), "A"));
-		this.pucks.push(new Puck(new V(xb, y), "B"));
+		this.pucks.push(new Puck(new V(xa, y), "A", randomRad));
+		this.pucks.push(new Puck(new V(xb, y), "B", randomRad));
 
 		// If that wasn't the center puck, add another puck below
 		if(!placingCenterPucks) {
-			this.pucks.push(new Puck(new V(xa, this.canvas.height - y), "A"));
-			this.pucks.push(new Puck(new V(xb, this.canvas.height - y), "B"));
+			randomRad = 20 + Math.random() * 60;
+			this.pucks.push(new Puck(new V(xa, this.canvas.height - y), "A", randomRad));
+			this.pucks.push(new Puck(new V(xb, this.canvas.height - y), "B", randomRad));
 		}
 		placingCenterPucks = false
 	}
